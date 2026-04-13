@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>깜짝 질문!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffe6e6; /* 연한 핑크색 배경 */
+            font-family: 'Malgun Gothic', sans-serif;
+            overflow: hidden; /* 도망가는 버튼이 화면 밖으로 나가지 않게 방지 */
+        }
+
+        .card {
+            position: relative;
+            width: 80%;
+            max-width: 400px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(255, 77, 77, 0.2);
+            padding: 40px 20px;
+            text-align: center;
+            border: 3px solid #ff4d4d;
+        }
+
+        /* 두근거리는 하트 장식 */
+        .heart-icon {
+            font-size: 60px;
+            color: #ff4d4d;
+            margin-top: -70px; 
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 30px;
+            word-break: keep-all;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 10px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        #btn-yes {
+            background-color: #ff4d4d;
+            color: white;
+            position: relative;
+            z-index: 10;
+        }
+
+        #btn-no {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        #btn-yes:hover {
+            background-color: #ff1a1a;
+        }
+
+        #btn-no:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="heart-icon">❤</div>
+        <h1>김기훈을 사랑합니까?</h1>
+        <div class="buttons">
+            <button id="btn-yes">예</button>
+            <button id="btn-no">아니오</button>
+        </div>
+    </div>
+
+    <script>
+        const btnYes = document.getElementById('btn-yes');
+        const btnNo = document.getElementById('btn-no');
+
+        // 버튼을 화면 내 무작위 위치로 이동시키는 함수
+        function moveButton() {
+            btnYes.style.position = 'absolute';
+            
+            // 화면 크기 내에서 무작위 위치 계산 (버튼이 화면 밖으로 잘리지 않게 여백 포함)
+            const maxX = window.innerWidth - btnYes.clientWidth - 20;
+            const maxY = window.innerHeight - btnYes.clientHeight - 20;
+            
+            const randomX = Math.max(10, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+            
+            btnYes.style.left = randomX + 'px';
+            btnYes.style.top = randomY + 'px';
+        }
+
+        // 데스크탑: 마우스 커서가 다가갈 때 도망가기
+        btnYes.addEventListener('mouseover', moveButton);
+        
+        // 모바일 스마트폰: 손가락으로 터치하려고 할 때 도망가기
+        btnYes.addEventListener('touchstart', function(e) {
+            e.preventDefault(); // 실제 클릭(터치)되는 것을 방지
+            moveButton();
+        });
+
+        // '아니오' 버튼을 클릭했을 때의 반응
+        btnNo.addEventListener('click', function() {
+            alert('어떻게 그럴 수가...');
+        });
+        
+        // 기적적으로 마우스를 빨리 움직여서 '예'를 클릭하는 데 성공했을 경우
+        btnYes.addEventListener('click', function() {
+            alert('드디어 잡았네! 나도 사랑해 ❤');
+        });
+    </script>
+</body>
+</html>
